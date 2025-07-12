@@ -63,7 +63,8 @@ class CategoryTest extends TestCase
         
         $updateData = [
             'name' => 'Updated Category',
-            'description' => 'Updated Description'
+            'description' => 'Updated Description',
+            'parent_id' => null
         ];
 
         $response = $this->putJson("/api/categories/{$category->id}", $updateData);

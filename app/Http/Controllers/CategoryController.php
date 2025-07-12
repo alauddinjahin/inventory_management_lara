@@ -52,10 +52,15 @@ class CategoryController extends Controller
             return response()->json(['error' => 'Cannot create circular reference'], 400);
         }
 
-        $category->update($validated);
-        $category->load(['parent', 'children']);
-
-        return response()->json($category);
+        try {
+            $category->update($validated);
+            $category->load(['parent', 'children']);
+            
+            return response()->json($category);
+            
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to update category'], 500);
+        }
     }
 
     public function destroy(Category $category): JsonResponse
